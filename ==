@@ -1,0 +1,28 @@
+from browser import document, html
+from browser.widgets.dialog import InfoDialog
+ 
+# Define a function to handle button click event
+def on_click(event):
+    # Get the value of the input field
+    input_value = document["zone"].value
+    # Output the value in the console
+    print(input_value)
+ 
+# Create input element with id "zone"
+input_element = html.INPUT(id="zone")
+ 
+# Create button element with id "echo" and text "click !"
+button_element = html.BUTTON("click !", id="echo")
+ 
+# Add event listener to the button
+button_element.bind("click", on_click)
+ 
+# Append input and button elements to the document body with "brython_div1"
+document["brython_div1"] <= input_element
+document["brython_div1"] <= button_element
+ 
+def click(ev):
+    InfoDialog("Hello", f"Hello, {document['zone'].value} !")
+ 
+# bind event 'click' on button to callback function
+document["echo"].bind("click", click)
