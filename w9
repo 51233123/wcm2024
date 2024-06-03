@@ -1,0 +1,49 @@
+from browser import document, window, html, load
+ 
+# 动态加载 Matter.js 库 (假设使用 CDN)
+load("https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js")
+#print(dir(window.Matter.Bodies.rectangle()))
+# 创建 canvas 元素
+canvas = html.CANVAS(width=800, height=800)
+canvas.id = "canvas"
+canvas.style = {"border": "1px solid red"}  # 添加边框样式
+brython_div = document["brython_div1"]
+brython_div <= canvas
+ 
+ 
+# 获取 Matter.js 模块别名
+matter = window.Matter
+Engine = matter.Engine
+Render = matter.Render
+Runner = matter.Runner
+Bodies = matter.Bodies
+Composite = matter.Composite
+ 
+# 创建引擎
+engine = Engine.create()
+print(dir(engine))
+# 创建渲染器，使用 canvas 元素的 ID
+render = Render.create({
+    'element': document['canvas'],
+    'engine': engine
+})
+ 
+# 创建红色矩形
+rectangle = Bodies.rectangle(200, 200, 80, 80, {
+    'render': {
+        'fillStyle': 'red'
+    }
+})
+print(rectangle)
+ 
+# 将矩形添加到世界
+Composite.add(engine.world, [rectangle])
+ 
+# 创建运行器
+runner = Runner.create()
+ 
+# 运行引擎
+Runner.run(runner, engine)
+ 
+# 运行渲染器
+Render.run(render)
