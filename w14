@@ -1,0 +1,32 @@
+
+import io
+ 
+def process_file(file_path):
+  """
+  讀取檔案，處理後回傳處理後的文字。
+ 
+  Args:
+    file_path: 檔案路徑。
+ 
+  Returns:
+    處理後的文字。
+  """
+ 
+  with open(file_path, 'r', encoding='utf-8') as f:
+    lines = f.readlines()
+ 
+  processed_lines = [lines[0].strip()]  # 保留第一行標題
+ 
+  for line in lines[1:]:
+    parts = line.strip().split(" ", 1)  # 只分割一次，以保留後面的空白和中文字
+    if len(parts) == 1:
+      processed_lines.append(parts[0] + "\t")  # 若沒有後續資料，加tab
+    else:
+      processed_lines.append(parts[0] + "\t" + parts[1])  # 將空白換成tab
+ 
+  return "\n".join(processed_lines)
+ 
+# 測試
+file_path = '1a_w14.txt'  # 檔案路徑
+processed_text = process_file(file_path)
+print(processed_text)
